@@ -1,0 +1,48 @@
+x-common-environment: &common-environment
+  ENV: '${ENV:-devolvement}'
+  HOSTNAME: '${HOSTNAME:-test.local}'
+  
+services:
+  worker-01:
+    build:
+      context: '.'
+      dockerfile: 'Dockerfile'
+    pull_policy: 'build'
+    command: ['/usr/local/bin/node', 'bin/service.mjs']
+    exclude_from_hc: true
+    restart: 'always'
+    stop_signal: 'SIGINT'
+    stop_grace_period: '1h'
+    logging:
+      options:
+        max-size: '100k'
+        max-file: 3
+    environment: *common-environment
+
+  worker-02:
+    extends: 'worker-01'
+    command: ['/usr/local/bin/node', 'bin/service.mjs']
+    exclude_from_hc: true
+    environment: *common-environment
+
+  worker-03:
+    extends: 'worker-01'
+    command: ['/usr/local/bin/node', 'bin/service.mjs']
+    exclude_from_hc: true
+    environment: *common-environment
+
+  api:
+    extends: 'worker-01'
+    command: ['/usr/local/bin/node', 'bin/serve.mjs']
+    exclude_from_hc: false
+    expose:
+      - '3000'
+    healthcheck:
+      test: ['CMD', 'curl', '-f', 'http://localhost:3000', '||', 'exit', '1']
+      start_period: '5s'
+      retries: '10'
+      interval: '5s'
+      timeout: '5s'
+    environment:
+        <<: *common-environment
+        PORT: '3000'
