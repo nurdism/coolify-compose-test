@@ -1,5 +1,4 @@
-FROM node:20-alpine AS base
-
+FROM node:20-alpine
 ENV TINI_VERSION="0.19.0"
 ENV USER="node"
 ENV PNPM_HOME=/app/.pnpm
