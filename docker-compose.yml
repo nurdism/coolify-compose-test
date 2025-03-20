@@ -21,7 +21,7 @@ services:
 
   worker-02:
     extends: 'worker-01'
-    command: ['/usr/local/bin/node', 'bin/service.mjs']
+    command: ['/usr/local/bin/node', 'bin/service.js']
     exclude_from_hc: true
     environment: *common-environment
 
