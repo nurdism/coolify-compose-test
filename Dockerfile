@@ -4,7 +4,7 @@ ENV USER="app"
 ENV PNPM_HOME=/app/.pnpm
 ENV PATH=$PATH:$PNPM_HOME
 ADD https://github.com/krallin/tini/releases/download/v${TINI_VERSION}/tini /tini
-COPY --chown=$USER:$USER . .
+COPY --chown=$USER:$USER . /app
 RUN apk update && \
   apk add --no-cache libc6-compat curl openssl pnpm && \
   pnpm install --frozen-lockfile --prod && \
