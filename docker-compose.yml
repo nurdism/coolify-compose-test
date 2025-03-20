@@ -35,8 +35,8 @@ services:
     extends: 'worker-01'
     command: ['/usr/local/bin/node', 'bin/serve.js']
     exclude_from_hc: false
-    expose:
-      - '3000'
+    ports:
+      - '3000:80'
     healthcheck:
       test: ['CMD', 'curl', '-f', 'http://localhost:3000', '||', 'exit', '1']
       start_period: '5s'
