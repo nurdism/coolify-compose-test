@@ -8,7 +8,7 @@ services:
       context: '.'
       dockerfile: 'Dockerfile'
     pull_policy: 'build'
-    command: ['/usr/local/bin/node', 'bin/service.mjs']
+    command: ['/usr/local/bin/node', 'bin/service.js']
     exclude_from_hc: true
     restart: 'always'
     stop_signal: 'SIGINT'
@@ -27,13 +27,13 @@ services:
 
   worker-03:
     extends: 'worker-01'
-    command: ['/usr/local/bin/node', 'bin/service.mjs']
+    command: ['/usr/local/bin/node', 'bin/service.js']
     exclude_from_hc: true
     environment: *common-environment
 
   api:
     extends: 'worker-01'
-    command: ['/usr/local/bin/node', 'bin/serve.mjs']
+    command: ['/usr/local/bin/node', 'bin/serve.js']
     exclude_from_hc: false
     expose:
       - '3000'
