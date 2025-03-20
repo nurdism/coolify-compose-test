@@ -1,6 +1,6 @@
 FROM node:20-alpine
 ENV TINI_VERSION="0.19.0"
-ENV USER="node"
+ENV USER="app"
 ENV PNPM_HOME=/app/.pnpm
 ENV PATH=$PATH:$PNPM_HOME
 ADD https://github.com/krallin/tini/releases/download/v${TINI_VERSION}/tini /tini
