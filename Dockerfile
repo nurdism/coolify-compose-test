@@ -11,7 +11,7 @@ RUN apk update && \
   adduser --system --uid 1001 $USER \ 
   chmod +x /tini && chown $USER:$USER /tini
 USER $USER
-COPY --chown=$USER:$USER /app /app
+COPY --chown=$USER:$USER /bin /bin
 WORKDIR /app
 ENTRYPOINT ["/tini", "--"]
 CMD ["node", "bin/serve.js"]
