@@ -35,16 +35,12 @@ services:
     extends: 'worker-01'
     command: ['/usr/local/bin/node', 'bin/serve.js']
     exclude_from_hc: false
-    ports:
-      - '3000:3000'
-    expose:
-      - '3000'
-    #healthcheck:
-    #  test: ['CMD', 'curl', '-f', 'http://localhost:3000', '||', 'exit', '1']
-    #  start_period: '5s'
-    #  retries: '10'
-    #  interval: '5s'
-    #  timeout: '5s'
+    healthcheck:
+      test: ['CMD', 'curl', '-f', 'http://localhost:3000']
+      interval: 1m30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
     environment:
         <<: *common-environment
         PORT: '3000'
